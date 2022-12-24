@@ -1,12 +1,13 @@
 const hre = require("hardhat");
 
 async function main() {
-    const Greeter = await hre.ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, Hardhat!");
+    // Fetch contract to deploy
+    const Token = await ethers.getContractFactory("Token");
 
-    await greeter.deployed();
-
-    console.log("Greeter deployed to:", greeter.address);
+    // Deploy
+    const token = await Token.deploy()
+    await token.deployed()
+    console.log(`Token deployed to: ${token.address}`)
 }
 
 // We recommend this pattern to be able to use async/await everywhere
