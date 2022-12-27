@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
-const { result } = require("lodash");
+// const { result } = require("lodash"); doesn't seem to affect testing...but idk why I coded this in..lol
 
 
 
@@ -199,4 +199,5 @@ describe('Token', () => {
             await expect(token.connect(exchange).transferFrom(deployer.address, receiver.address, invalidAmount)).to.be.reverted
         })
     })
+    
 })
