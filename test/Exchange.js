@@ -193,7 +193,6 @@ describe('Exchange', () => {
                 expect(args.amountGive).to.equal(tokens(1))
                 expect(args.timestamp).to.at.least(1)
             })
-
         })
 
         describe('Failure', async () => {
