@@ -11,6 +11,7 @@ contract Exchange {
     mapping(address => mapping(address => uint256)) public tokens;
     mapping(uint256 => _Order) public orders;
     uint256 public orderCount; // counterCache = total num of orders that have been created in this smart contract itself
+    mapping(uint256 => bool) public orderCancelled; // boolean
 
 
     event Deposit(
@@ -36,6 +37,17 @@ contract Exchange {
         uint256 amountGive, 
         uint256 timestamp 
     );
+
+    event Cancel(
+        uint256 id,      
+        address user,     
+        address tokenGet,   
+        uint256 amountGet,  
+        address tokenGive,  
+        uint256 amountGive, 
+        uint256 timestamp 
+    );
+
 
     // Order Struct (way to create your own arbitrary data type inside Solidity)
     // A way to model the order
@@ -139,6 +151,32 @@ contract Exchange {
             block.timestamp
         );
         
+    }
+
+    // Cancel order
+    function cancelOrder(uint256 _id) public {
+        // Fetch order
+        _Order storage _order = orders[_id];
+
+        // Ensure caller of the function is owner of order
+        require(address(_order.user) == msg.sender);
+
+        // Order must exist
+        require(_order.id == _id);
+
+        // Cancel the order
+        orderCancelled[_id] = true;
+
+        // Emit event
+        emit Cancel(
+            _order.id,
+            msg.sender,
+            _order.tokenGet,
+            _order.amountGet,
+            _order.tokenGive,
+            _order.amountGive,
+            block.timestamp
+        );
     }
 
 
