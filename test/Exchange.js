@@ -256,7 +256,7 @@ describe('Exchange', () => {
                     // user1 deposits tokens approval
                     transaction = await token1.connect(user1).approve(exchange.address, amount)
                     result = await transaction.wait()
-                                        
+
                     // user1 deposits tokens
                     transaction = await exchange.connect(user1).depositToken(token1.address, amount)
                     result = await transaction.wait()
@@ -277,7 +277,7 @@ describe('Exchange', () => {
             })
             
         })
-
-        // Fill order
+        
     })
 })
+
