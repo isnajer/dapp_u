@@ -164,7 +164,7 @@ contract Exchange {
         );
     }
 
-    // Cancel order
+    // Cancel Order
     function cancelOrder(uint256 _id) public {
         // Fetch order
         _Order storage _order = orders[_id];
@@ -252,8 +252,14 @@ contract Exchange {
             _amountGive,
             _user, 
             block.timestamp);
-
     }
+
+
+    // ----- SEED EXCHANGE -----
+    
+
+
+
 
 
 }
