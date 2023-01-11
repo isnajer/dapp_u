@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { ethers } from 'ethers';
 import config from '../config.json';
-import TOKEN_ABI from '../abis/Token.json';
-import EXCHANGE_ABI from '../abis/Exchange.json';
+// import EXCHANGE_ABI from '../abis/Exchange.json';
 
 import { 
   loadProvider, 
@@ -11,16 +9,13 @@ import {
   loadAccount,
   loadToken 
 } from '../store/interactions';
-import store from '../store/store';
-
 
 
 function App() {
-
   const dispatch = useDispatch()
 
   const loadBlockchainData = async () => {
-    const account = await loadAccount(dispatch)
+    await loadAccount(dispatch)
   
 
     // Connect Ethers to blockchain:
@@ -28,19 +23,14 @@ function App() {
       // Etheres is the library that lets us talk to the blockchain (turns app into a blockchain app)
     const provider = loadProvider(dispatch)
     const chainId = await loadNetwork(provider, dispatch)
-    
 
-    console.log()
-
-    // Token Smart Contracts
+    // Token Smart Contract
     await loadToken(provider, config[chainId].DAPP.address, dispatch)
-
 
     
     // Exchange Smart Contract
-    const exchange = new ethers.Contract(config[chainId].exchange.address, EXCHANGE_ABI, provider)
-    console.log(exchange.address)
-    
+    // const exchange = new ethers.Contract(config[chainId].exchange.address, EXCHANGE_ABI, provider)
+    // console.log(exchange.address)
   }
 
   // UseEffect for Data Fetching (blockchain data)
